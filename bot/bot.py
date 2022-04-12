@@ -4,11 +4,16 @@ from discord import ui
 import os,json
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Bot subclass
 class BotSubclass(commands.Bot):
 
     def __init__(self):
+
+        load_dotenv()
+
+        self._TOKEN = os.getenv('BOT_TOKEN')
 
         config_path = "config.json"
         if os.path.exists('debug_config.json'): # Use configurations for test server
@@ -18,7 +23,7 @@ class BotSubclass(commands.Bot):
         with open(config_path, "r") as config:
             self._DATA = json.load(config)
 
-            self._TOKEN = self._DATA["BOT_TOKEN"]
+            # self._TOKEN = self._DATA["BOT_TOKEN"]
             self.PREFIX = self._DATA["BOT_PREFIX"]
             self.DEVS = self._DATA['DEVS']
 
