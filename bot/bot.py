@@ -5,6 +5,8 @@ import os,json
 from pathlib import Path
 import os
 
+from .database.db_setup import Database
+
 # Bot subclass
 class BotSubclass(commands.Bot):
 
@@ -22,6 +24,8 @@ class BotSubclass(commands.Bot):
             self.PREFIX = self._DATA["BOT_PREFIX"]
             self.DEVS = self._DATA['DEVS']
 
+
+            self.db = Database(self._DATA["MONGODB_URI"])
 
         self.custom_cogs = {
             "admin": "basic_cogs.admin",

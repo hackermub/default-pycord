@@ -3,6 +3,7 @@
     "BOT_PREFIX": "Put command prefix",
     "DEVS": [
         "Put developer id(s)"
-    ]
+    ],
     
+    "MONGODB_URI": "Put mongodb uri here, put in .env if using replit"
 }
