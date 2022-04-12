@@ -1,5 +1,6 @@
 # Custom 
-debugconfig.json
+debug_config.json
+test.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

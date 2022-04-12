@@ -13,6 +13,13 @@ class Admin(commands.Cog):
             return False
         return True;
 
+    # Pong command
+    @commands.command(name = "ping", aliases=["p"])
+    async def ping(self, ctx:commands.Context):
+        await ctx.send("Pong! Latency: {:.2f}".format(self.bot.latency * 1000), delete_after=5)
+        
+
+
 
 def setup(bot:commands.Bot):
     bot.add_cog(Admin(bot))

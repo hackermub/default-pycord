@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord import ui
 import os,json
 from pathlib import Path
+import os
 
 # Bot subclass
 class BotSubclass(commands.Bot):
@@ -10,8 +11,8 @@ class BotSubclass(commands.Bot):
     def __init__(self):
 
         config_path = "config.json"
-        if os.path.exists('debugconfig.json'): # Use configurations for test server
-            config.json = 'debugconfig.json'
+        if os.path.exists('debug_config.json'): # Use configurations for test server
+            config_path = 'debug_config.json'
 
         # Get Tokens and global variables
         with open(config_path, "r") as config:
@@ -22,8 +23,12 @@ class BotSubclass(commands.Bot):
             self.DEVS = self._DATA['DEVS']
 
 
-        self._cogs = [p.stem for p in Path(".").glob("./bot/cogs/*.py")]
-        self.setup()
+        self.custom_cogs = {
+            "admin": "basic_cogs.admin",
+            "error": "basic_cogs.error",
+            "event": "basic_cogs.event",
+            "reloader": "basic_cogs.reloader",
+        }
         self._intents = discord.Intents().all()
 
         super().__init__(command_prefix=self.prefix, intents = self._intents, case_insensitive=True)
@@ -33,12 +38,12 @@ class BotSubclass(commands.Bot):
     def setup(self):
 
         print("Starting to load cogs...")
-        for cog in self._cogs:
+        for cog_name,cog_path in self.custom_cogs.items():
             try:
-                self.load_extension(f"bot.cogs.{cog}")
-                print(f"Extension {cog} loaded.")
+                self.load_extension(f"bot.{cog_path}")
+                print(f"Extension {cog_name} loaded.")
             except Exception as exc:
-                print(f"Failed to load extension {cog}: {exc}")
+                print(f"Failed to load extension {cog_name}: {exc}")
                 raise exc
         print('Completed loading cogs')
 

@@ -48,7 +48,7 @@ class ErrorHandler(commands.Cog):
                 await ctx.send(dev.mention)
             logging.exception(exc)
 
-    #Error in on_message event
+    #Error in on_message event, need to be called in on_message event
     async def on_message_error(self,message,exc):
         exc_org = getattr(exc, "original", exc)
         if not isinstance(exc_org,commands.CommandError):

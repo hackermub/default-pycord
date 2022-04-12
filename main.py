@@ -9,6 +9,7 @@ logging.basicConfig(
 
 if __name__ == "__main__":
     bot = BotSubclass()
+    bot.setup()
     bot.run()
 
 
