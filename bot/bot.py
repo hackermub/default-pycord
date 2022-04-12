@@ -6,6 +6,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+from .database.db_setup import Database
+
 # Bot subclass
 class BotSubclass(commands.Bot):
 
@@ -14,6 +16,7 @@ class BotSubclass(commands.Bot):
         load_dotenv()
 
         self._TOKEN = os.getenv('BOT_TOKEN')
+        self.db = Database(os.getenv('MONGODB_URI'))
 
         config_path = "config.json"
         if os.path.exists('debug_config.json'): # Use configurations for test server
